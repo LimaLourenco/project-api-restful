@@ -4,13 +4,14 @@ import config from "config";
 
 const app = express();
 
-// JSON middleware para a rota - E para pode trafegar informações em JSON
+// JSON middleware para a rota - É para trafega informações em JSON
 app.use(express.json());
 
 // Routes
 import router from "./router";
 
-// Prefixo de url para as rotas   
+// Prefixo de url para as rotas da API
+// Todas as rotas que estão dentro do router vão ter o prefixo "/api/"  
 app.use("/api/", router);
 
 // app port 
