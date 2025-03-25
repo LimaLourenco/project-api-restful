@@ -7,6 +7,12 @@ const app = express();
 // JSON middleware para a rota - E para pode trafegar informações em JSON
 app.use(express.json());
 
+// Routes
+import router from "./router";
+
+// Prefixo de url para as rotas   
+app.use("/api/", router);
+
 // app port 
 const port = config.get<number>("port");
 
