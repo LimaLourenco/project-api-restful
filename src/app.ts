@@ -17,7 +17,7 @@ app.use("/api/", router);
 // app port 
 const port = config.get<number>("port");
 
-// Incializando a aplicação 
+// Inicializando a aplicação 
 // Contem alguns dados de configuração da aplicação 
 app.listen(port, async () => {
     // Depois vou ter a conexão com o Banco de dados e isso pode demorar alguma tempo.
