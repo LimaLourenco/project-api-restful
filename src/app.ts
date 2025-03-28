@@ -1,4 +1,8 @@
 // Arquivo principal da aplicação:
+
+// .ENV variables 
+require("dotenv").config();
+
 import express from "express";
 import config from "config";
 
@@ -6,6 +10,9 @@ const app = express();
 
 // JSON middleware para a rota - É para trafega informações em JSON
 app.use(express.json());
+
+// Importando o DB
+import db from "../config/db";
 
 // Routes
 import router from "./router";
@@ -20,6 +27,10 @@ const port = config.get<number>("port");
 // Inicializando a aplicação 
 // Contem alguns dados de configuração da aplicação 
 app.listen(port, async () => {
+
+    // Iniciando a conexão do banco de dados
+    await db();
+
     // Depois vou ter a conexão com o Banco de dados e isso pode demorar alguma tempo.
     console.log(`Aplicação está funcionando na porta: ${port}`);
 });
