@@ -7,5 +7,6 @@ export default {
     port: 3003,
 
     // Definindo a url de conexão com o banco de dados
-    dbUri: `mongodb+srv://${dbUser}:${dbPassword}@cluster0.oghyq0i.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+    dbUri: `mongodb+srv://${dbUser}:${dbPassword}@cluster0.oghyq0i.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`,
+    env: "development"
 }
