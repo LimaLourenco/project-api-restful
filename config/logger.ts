@@ -15,9 +15,21 @@ const levels = {
 
 const level = () => {
     // Fazendo a operação na função para saber qual é o ambiente que vai retornar
-    const env = config.get<string>("env") || "development"; // O env, ou como ambiente de desenvolvimento - "development" - ou de produção "prodution"
+    const env = config.get<string>("env") || "development"; // O env, ou como ambiente de desenvolvimento - "development" - ou até de produção - "prodution"
 
     const isDevelopment = env === "development";
-    return isDevelopment ? "debug" : "warn"; // 2:14
-
+    
+    // Fazendo o retorno de qual ambiente que eu vou está tratando
+    return isDevelopment ? "debug" : "warn"; 
 }
+
+const colors = {
+    // Definindo as Cores especificas de erros da aplicação 
+    error: "red",
+    warn: "yellow",
+    info: "green",
+    http: "magenta",
+    debug: "white" // 3:05
+}
+
+// Definindo as cores no pacote winston
