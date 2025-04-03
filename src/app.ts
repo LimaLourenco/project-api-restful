@@ -17,6 +17,9 @@ import db from "../config/db";
 // Routes
 import router from "./router";
 
+// Logger
+import Logger from "../config/logger";
+
 // Prefixo de url para as rotas da API
 // Todas as rotas que estão dentro do router vão ter o prefixo "/api/"  
 app.use("/api/", router);
@@ -31,8 +34,10 @@ app.listen(port, async () => {
     // Iniciando a conexão do banco de dados
     await db();
 
-    // Depois vou ter a conexão com o Banco de dados e isso pode demorar alguma tempo.
-    console.log(`Aplicação está funcionando na porta: ${port}`);
+    // // Depois vou ter a conexão com o Banco de dados e isso pode demorar alguma tempo.
+    // console.log(`Aplicação está funcionando na porta: ${port}`);
+
+    Logger.info(`Aplicação está funcionando na porta: ${port}`);
 });
 
 

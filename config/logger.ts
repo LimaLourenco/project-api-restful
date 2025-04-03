@@ -11,7 +11,7 @@ const levels = {
     info: 2,
     http: 3,
     debug: 4
-}
+};
 
 const level = () => {
     // Fazendo a operação na função para saber qual é o ambiente que vai retornar
@@ -21,7 +21,7 @@ const level = () => {
     
     // Fazendo o retorno de qual ambiente que eu vou está tratando
     return isDevelopment ? "debug" : "warn"; 
-}
+};
 
 const colors = {
     // Definindo as Cores especificas de erros da aplicação 
@@ -29,7 +29,44 @@ const colors = {
     warn: "yellow",
     info: "green",
     http: "magenta",
-    debug: "white" // 3:05
-}
+    debug: "white" 
+};
 
 // Definindo as cores no pacote winston
+winston.addColors(colors);
+
+// Formantando as mensagens
+const format = winston.format.combine(
+    winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss:ms" }),
+    winston.format.colorize({ all: true }),
+    winston.format.printf(
+        // O que vir da requisição (request) em info, vou pode extrair e exibir 
+        (info) => {
+            return `${info.timestamp} - ${info.level}: ${info.message}`;
+        }
+    )
+);
+
+// Definindo para criar um arquivo para transportar os erros e os avisos
+const transports = [
+    new winston.transports.Console(),
+    new winston.transports.File({
+        filename: "logs/error.log",
+        level: "error"
+    }),
+    // Para entender como um todo o que está ocorrendo na minha aplicação/sistema
+    new winston.transports.File({ filename: "logs/all.log" }),
+];
+
+// Criando a instancia de Logger com tudo que foi configurado
+const Logger = winston.createLogger({ 
+    level: level(),
+    // Colocando as opções de levels disponiveis
+    levels,
+    // Passando a formatação definida
+    format,
+    // Para criar os arquivos e o arquivo especifico
+    transports
+});
+
+export default Logger;
