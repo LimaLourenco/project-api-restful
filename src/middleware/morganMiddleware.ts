@@ -7,3 +7,11 @@ import config from "config";
 
 // Logger para imprimir as mensagens como padrão estabelecido e configurado
 import Logger from "../../config/logger"; // 1:27
+
+// Criando a const para conseguir ler as requisições HTTP
+const stream: StreamOptions = {
+    write: (message) => {
+        Logger.http(message);
+    }
+};
+
