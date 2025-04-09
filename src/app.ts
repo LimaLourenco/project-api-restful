@@ -20,6 +20,11 @@ import router from "./router";
 // Logger
 import Logger from "../config/logger";
 
+// Middleware
+import morganMiddleware from "./middleware/morganMiddleware";
+
+app.use(morganMiddleware);
+
 // Prefixo de url para as rotas da API
 // Todas as rotas que estão dentro do router vão ter o prefixo "/api/"  
 app.use("/api/", router);
