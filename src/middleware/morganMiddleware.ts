@@ -6,7 +6,7 @@ import morgan, { StreamOptions } from "morgan";
 import config from "config";
 
 // Logger para imprimir as mensagens como padrão estabelecido e configurado
-import Logger from "../../config/logger"; // 1:27
+import Logger from "../../config/logger";
 
 // Criando a const para ler as requisições HTTP baseado no pacote winston
 const stream: StreamOptions = {
@@ -23,7 +23,7 @@ const skip = () => {
     return env !==  "development";
 };
 
-const morganMiddleware = morgan( // 3:25
+const morganMiddleware = morgan(
     // Definindo um padrão de menssagem
     ":method :url :status :res[content-length] - :response-time ms",
     {stream, skip}
