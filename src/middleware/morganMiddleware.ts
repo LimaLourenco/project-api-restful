@@ -25,7 +25,7 @@ const skip = () => {
 
 const morganMiddleware = morgan( // 3:25
     // Definindo um padrão de menssagem
-    ":method :url :status :res[content-lenght] - :response-time ms",
+    ":method :url :status :res[content-length] - :response-time ms",
     {stream, skip}
 );
 
