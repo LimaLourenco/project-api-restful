@@ -8,7 +8,7 @@ import config from "config";
 import Logger from "./logger";
 
 async function connect() {
-    // Criando a conexão do pacote momgoose com o mongoDB Atlas
+    // Criando a conexão do pacote mongoose com o mongoDB Atlas
     const dbUri = config.get<string>("dbUri");
 
     try {
