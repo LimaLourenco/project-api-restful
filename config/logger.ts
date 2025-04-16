@@ -14,12 +14,21 @@ const levels = {
 };
 
 const level = () => {
-    // Fazendo a operação na função para saber qual é o ambiente que vai retornar
+     // Fazendo a operação na função para saber qual é o ambiente que vai retornar
+    // Essa linha tenta obter o valor do ambiente atual (env) a partir de uma configuração (config.get<string>("env")).
+   // Se não encontrar nenhum valor definido, assume "development" como padrão.
     const env = config.get<string>("env") || "development"; // O env, ou como ambiente de desenvolvimento - "development" - ou até de produção - "prodution"
 
+    // Verifica se o ambiente atual é igual a "development" e salva um resultado ( boolean ) em isDevelopment.
+    // Se sim, isDevelopment será true; caso contrário, será false.
     const isDevelopment = env === "development";
     
     // Fazendo o retorno de qual ambiente que eu vou está tratando
+    // Com o operador ternário: condição ? valor_se_verdadeiro : valor_se_falso.
+    // Se isDevelopment for true, retorna "debug".
+    // Se for false, retorna "warn".
+    // Se o ambiente for de desenvolvimento, retorna "debug" (nível de log detalhado).
+    // Se for outro (como produção), retorna "warn" (nível de log mais restrito).
     return isDevelopment ? "debug" : "warn"; 
 };
 
