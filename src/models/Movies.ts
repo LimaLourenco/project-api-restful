@@ -23,7 +23,7 @@ const movieSchema = new Schema(
 
 // Com o Schema pronto, eu vou exportar o model deste Schema.
 // Nomeando o model e passando o Schema.
-// Depois quando eu trazer este MovieModel no meus controllers para poder ativar os metodos por exemplo de criação e leitura, 
-// Eu vou ter acesso a todos os metodos que tem no mongoose, e vou conseguir criar e ler as minhas entidades de maneira bem facil. 
+// Depois quando eu trazer este MovieModel nos meus controllers, vou poder ativar os metodos, por exemplo de criação e leitura.
+// Eu vou ter acesso a todos os metodos que tem no mongoose, e vou conseguir por exemplo criar e ler as minhas entidades de maneira bem facil. 
 export const MovieModel = model("Movies", movieSchema); 
 
