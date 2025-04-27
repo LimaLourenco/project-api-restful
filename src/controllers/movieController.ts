@@ -10,7 +10,8 @@ import { MovieModel } from "../models/Movies";
 import Logger from "../../config/logger";
 
 // Criando as minhas funções de criação, leitura e etc...
-// Todas funções serão assincronas, porque irei trabalhar com o Banco de dados, e para também poder esperar o Banco de dados responder com os dados.
+// Todas funções serão assincronas, porque irei trabalhar com o Banco de dados, e também para pode espera o Banco de dados 
+// responder com os dados.
 export async function createMovie( req: Request, res: Response ) {
     // return res.status(200).send("Deu certo o controller");
 
@@ -27,7 +28,7 @@ export async function createMovie( req: Request, res: Response ) {
        return res.status(201).json(movie); 
     } catch (error: any) {
         // Obs 1: As vezes error.message não entende que vai vir uma propriedade de message de erro.
-        // Obs 2: Colocando o erro: any, vou ter mais controle, e vai vir um objeto de erro com variados tipos. 
+        // Obs 2: Colocando o error: any, vou ter mais controle, e vai vir um objeto de erro com variados tipos. 
         Logger.error(`Erro no sistema: ${error.message}`); 
     }
 }
