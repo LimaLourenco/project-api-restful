@@ -11,9 +11,27 @@ import { validationResult } from "express-validator";
 // ou seja para que os dados não venha incorretos, e que sejam impedidos e para que não possa prosseguir.
 
 export const validate = (req: Request, res: Response, next: NextFunction) => {
-    // 1:33
+    
+    // Vai receber o validationResult, e vai trazer os erros a partir da requisição
     const errors = validationResult(req);
-}
+
+    // Se não tiver nenhum erro capturado no array, e estiver vazio, vou prosseguir com a criação de filmes no sistema/aplicação.
+    if (errors.isEmpty()) {
+        return next();
+    }
+
+    // Se estiver algum erro capturado no array
+    const extratectErrors: object[] = [];
+
+    // Vou inserir cada um dos erros nele.
+    errors.array().map((err) => {
+        extratectErrors.push({ [err.param]: err.msg });
+    });
+
+    return res.status(422).json({
+        errors: extratectErrors,
+    });
+};
 
 
 

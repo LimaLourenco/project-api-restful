@@ -4,6 +4,9 @@
 import { Router, Request, Response } from "express";
 import { createMovie } from "./controllers/movieController";
 
+// Validations
+import { validate } from "./middleware/handleValidation";
+
 const router = Router();
 
 // Consigo definir qual método HTTP que a rota vai aceitar.
@@ -15,7 +18,7 @@ export default router.get("/test", (req: Request, res: Response) => {
     res.status(200).send("Trabalhando na API");
    
 })
-.post("/movie", async (req: Request, res: Response) => {
+.post("/movie", validate, async (req: Request, res: Response) => {
     try {
         await createMovie(req, res);
     } catch (error) {
