@@ -18,7 +18,7 @@ export default router.get("/test", (req: Request, res: Response) => {
     res.status(200).send("Trabalhando na API");
    
 })
-.post("/movie", validate, async (req: Request, res: Response) => {
+.post("/movie", validate, async (req: Request, res: Response) => { // Utilizando o validate em Rotas especificas, para deixa mais otimizado.
     try {
         await createMovie(req, res);
     } catch (error) {
