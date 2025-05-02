@@ -6,6 +6,7 @@ import { createMovie } from "./controllers/movieController";
 
 // Validations
 import { validate } from "./middleware/handleValidation";
+import { movieCreateValidation } from "./middleware/movieValidation";
 
 const router = Router();
 
@@ -18,7 +19,7 @@ export default router.get("/test", (req: Request, res: Response) => {
     res.status(200).send("Trabalhando na API");
    
 })
-.post("/movie", validate, async (req: Request, res: Response) => { // Utilizando o validate em Rotas especificas, para deixa mais otimizado.
+.post("/movie", movieCreateValidation(), validate, async (req: Request, res: Response) => { // Utilizando o validate em Rotas especificas, para deixa mais otimizado.
     try {
         await createMovie(req, res);
     } catch (error) {
