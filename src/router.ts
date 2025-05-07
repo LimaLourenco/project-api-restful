@@ -13,11 +13,10 @@ const router = Router();
 // Consigo definir qual método HTTP que a rota vai aceitar.
 // E também posso criar as minhas rotas da API.
 
-// Define uma rota GET com o caminho "/test"
+// Define uma rota GET com o caminho de rota "/test"
 export default router.get("/test", (req: Request, res: Response) => {
     // Responde com o status 200 e com a mensagem de "Trabalhando na API"
     res.status(200).send("Trabalhando na API");
-   
 })
 .post("/movie", movieCreateValidation(), validate, async (req: Request, res: Response) => { // Utilizando o validate em Rotas especificas, para deixa mais otimizado.
     try {
