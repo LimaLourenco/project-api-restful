@@ -1,5 +1,6 @@
 // Linkando as Rotas até meu controller
 
+// Obs: O controller tendo como a função principal conter a lógica de negócio da aplicação
 // Trabalhando na logica
 import { Request, Response } from "express";
 
