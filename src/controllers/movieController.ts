@@ -29,7 +29,19 @@ export async function createMovie( req: Request, res: Response ) {
        return res.status(201).json(movie); 
     } catch (error: any) {
         // Obs 1: As vezes error.message não entende que vai vir uma propriedade de message de erro.
-        // Obs 2: Colocando o error: any, vou ter mais controle, e vai vir um objeto de erro com variados tipos. 
+        // Obs 2: Colocando o error: any, vou ter mais controle, e para vir um objeto de erro com variados tipos. 
+        Logger.error(`Erro no sistema: ${error.message}`); 
+    }
+}
+
+export async function findMovieById(req: Request, res: Response) {
+    
+    // Utizando o Route params - Que recebe os dados da requisição na rota.
+    // O id vou pega pela URL, e que chega pelo req.params. 
+    try { // Para trata o erro
+        // const id = req.params.id;
+        const { id } = req.params;
+    } catch (error: any) {
         Logger.error(`Erro no sistema: ${error.message}`); 
     }
 }
