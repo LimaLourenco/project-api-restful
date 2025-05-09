@@ -35,12 +35,19 @@ export async function createMovie( req: Request, res: Response ) {
 }
 
 export async function findMovieById(req: Request, res: Response) {
-    
-    // Utizando o Route params - Que recebe os dados da requisição na rota.
-    // O id vou pega pela URL, e que chega pelo req.params. 
+    // Utizando o Route params - Para recebe os dados da requisição na rota.
+    // O id vou pega pela URL, e que vai chega pelo req.params. 
     try { // Para trata o erro
         // const id = req.params.id;
         const { id } = req.params;
+
+        // Para encontrar o movie
+        const movie = await MovieModel.findById(id); // Buscando um documento pelo seu _id.
+
+        // Caso não encontre o movie
+        if (!movie) {
+            return res.status(404).json({ error: "O filme não existe"});
+        }
     } catch (error: any) {
         Logger.error(`Erro no sistema: ${error.message}`); 
     }

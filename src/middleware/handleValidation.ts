@@ -1,4 +1,4 @@
-// Utilizando o NextFunction, porque como é middleware, e vai precisa fazer um tratamento para vê se realmente vai seguir mesmo,
+// Utilizando o NextFunction, porque como é um middleware, e vai precisa fazer um tratamento para vê se realmente vai precisa seguir mesmo,
 // para frente a requisição ou não vai.
 
 import { Request, Response, NextFunction } from "express";
