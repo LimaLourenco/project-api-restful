@@ -2,7 +2,7 @@
 
 // Importando funcionalidade Router do express ( Para criar as rotas ), e o Request e Response para trabalha com as funções que receberam as Requisições e as Respostas.  
 import { Router, Request, Response } from "express";
-import { createMovie } from "./controllers/movieController";
+import { createMovie, findMovieById } from "./controllers/movieController";
 
 // Validations
 import { validate } from "./middleware/handleValidation";
@@ -24,5 +24,12 @@ export default router.get("/test", (req: Request, res: Response) => {
     } catch (error) {
         res.status(500).send("Internal Server Error");
     }
-}); // Cada Rota aqui, vai corresponder a uma função do meu Controller.
+}) // Cada Rota aqui, vai corresponder a uma função do meu Controller.
+.get("/movie/:id", async (req: Request, res: Response) => { // Criando uma rota dinamica.
+    try {
+        await findMovieById(req, res);
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+})
 
