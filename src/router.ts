@@ -27,9 +27,9 @@ export default router.get("/test", (req: Request, res: Response) => {
 }) // Cada Rota aqui, vai corresponder a uma função do meu Controller.
 .get("/movie/:id", async (req: Request, res: Response) => { // Criando uma rota dinamica.
     try {
-        await findMovieById(req, res);
+        await findMovieById(req, res); // No try,  é chamado uma função findMovieById, passando a requisição e a resposta como argumentos.
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        res.status(500).send("Internal Server Error"); // Se ocorrer algum erro durante a chamada, o catch captura o erro e responde com status HTTP 500 (erro interno do servidor) e com a mensagem "Internal Server Error".
     }
 })
 
