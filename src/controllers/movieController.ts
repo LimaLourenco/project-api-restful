@@ -13,6 +13,7 @@ import Logger from "../../config/logger";
 // Criando as minhas funções de criação, leitura e etc...
 // Todas funções serão assincronas, porque irei trabalhar com o Banco de dados, e também para pode espera o Banco de dados 
 // responder com os dados.
+// req representa a requisição feita, e o res representa uma resposta de retorno para a requisição.
 export async function createMovie( req: Request, res: Response ) { // createMovie - Responsável por criar um novo filme (movie) no banco de dados, a partir dos dados recebidos na requisição.
     
     // return res.status(200).send("Deu certo o controller");
@@ -36,12 +37,14 @@ export async function createMovie( req: Request, res: Response ) { // createMovi
     }
 }
 
+// Encontrando/Resgatando o filme por id
 export async function findMovieById(req: Request, res: Response) {
     // Utizando o Route params - Para recebe os dados da requisição na rota.
-    // O id vou pega pela URL, e que também vai chega pelo req.params. 
-    // Usando o Route Params para capturar o id pela URL, com req.params.id (ou via desestruturação como const { id } = req.params), e utilizando o valor para buscar o filme no banco.
+    // O id vou pega pela URL, e que também vai chega via req.params. 
+    // Obs: Usando o Route Params para capturar o id pela URL, com req.params.id (ou via desestruturação como const { id } = req.params), e utilizando o valor para buscar o filme no banco.
     try { // Para trata o erro
         // const id = req.params.id;
+
         const { id } = req.params;
 
         // Para encontrar o movie
@@ -62,3 +65,29 @@ export async function findMovieById(req: Request, res: Response) {
 // Observação: O id está sendo extraído dos parâmetros da rota — ou seja, da URL. Porque a rota foi definida.
 // Observação: O :id na definição da rota é um Route Param, e seu valor é passado dinamicamente na URL, por exemplo GET /movies/6639b66d0a1e7dfd2587a13c.
 // Observação: Utilizando o conceito de Route Params - Route: é o caminho da URL (ex: /movies/:id), e o Params: são os dados dinâmicos passados na rota, indicados por :algumaCoisa.
+
+// Encontrando todos os filmes cadastrados
+export async function getAllMovies(req: Request, res: Response) {
+    try {
+        const movies = await MovieModel.find();
+        return res.status(200).json(movies);
+    } catch (error: any) {
+        Logger.error(`Erro no sistema: ${error.message}`)
+    }
+}
+
+// ** Observações **:
+
+// Esse código todo do controller, nessa aplicação em Node.js com Express e Mongoose (MongoDB), é responsável por lidar com a lógica de negócio relacionada aos filmes (“movies”) na aplicação.
+
+// *** Observações Importantes ***:
+
+// * A Função do Controller: O controller atua como intermediário entre as rotas (que recebem requisições HTTP), 
+// e os models (que representam o banco de dados). E ele processa os dados recebidos, interage com o banco de dados, e retorna uma resposta adequada.
+
+// * Todos os métodos estão protegidos por blocos try/catch para tratar erros e registrar com o logger.
+
+// * O :id na rota representa um parâmetro dinâmico da URL, acessado via req.params.
+
+// * As respostas é sempre enviadas no formato JSON.
+
