@@ -83,7 +83,7 @@ export async function getAllMovies(req: Request, res: Response) {
 // *** Observações Importantes ***:
 
 // * A Função do Controller: O controller atua como intermediário entre as rotas (que recebem requisições HTTP), 
-// e os models (que representam o banco de dados). E ele processa os dados recebidos, interage com o banco de dados, e retorna uma resposta adequada.
+// e os models (que representam o banco de dados). E o controller processa os dados recebidos, interage com o banco de dados, e retorna uma resposta adequada.
 
 // * Todos os métodos estão protegidos por blocos try/catch para tratar erros e registrar com o logger.
 
