@@ -67,8 +67,8 @@ export async function findMovieById(req: Request, res: Response) {
 // Observação: Utilizando o conceito de Route Params - Route: é o caminho da URL (ex: /movies/:id), e o Params: são os dados dinâmicos passados na rota, indicados por :algumaCoisa.
 
 // Encontrando todos os filmes cadastrados
-// Obs: Todos os dados cadastrados no sistema para o front-end caso for consumir essa Api aqui, 
-// desta maneira resgato todos os dados sem filtro nenhum para por exemplo exibir numa home page.
+// Obs: Todos os dados cadastrados no sistema, para o front-end caso for consumir essa Api aqui, 
+// e desta maneira resgato todos os dados sem filtro nenhum para por exemplo exibir numa home page.
 export async function getAllMovies(req: Request, res: Response) {
     try {
         const movies = await MovieModel.find();
