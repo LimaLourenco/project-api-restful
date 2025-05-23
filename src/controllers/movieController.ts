@@ -21,6 +21,12 @@ export async function createMovie( req: Request, res: Response ) { // createMovi
     try {
        // Primeiro recebo os dados pelo req.body, ou seja pelo corpo da requisição, e os dados vindo em formato json. 
        const data = req.body;
+
+        // Verifica se já existe um filme com o mesmo título
+        const existingMovie = await MovieModel.findOne({ title: data.title });
+        if (existingMovie) {
+            return res.status(409).json({ message: "Já existe um filme com este título." }); // 409 = Conflict
+        }
        
        // Criando novo movie
        // Esperando o MovieModel dar a entrada para ativar o metodo create para criar o dado que foi passado/fornecido.
@@ -67,8 +73,8 @@ export async function findMovieById(req: Request, res: Response) {
 // Observação: Utilizando o conceito de Route Params - Route: é o caminho da URL (ex: /movies/:id), e o Params: são os dados dinâmicos passados na rota, indicados por :algumaCoisa.
 
 // Encontrando todos os filmes cadastrados
-// Obs: Todos os dados cadastrados no sistema, para o front-end caso for consumir essa Api aqui, 
-// e desta maneira resgato todos os dados sem filtro nenhum para por exemplo exibir numa home page.
+// Obs: Encontra todos os filmes cadastrados no sistema, para caso o front-end possa consumir essa Api aqui, 
+// e desta maneira resgato todos os dados sem filtro nenhum, para por exemplo exibir numa home page.
 export async function getAllMovies(req: Request, res: Response) {
     try {
         const movies = await MovieModel.find();
@@ -78,6 +84,7 @@ export async function getAllMovies(req: Request, res: Response) {
     }
 }
 
+// Removendo registros
 export async function removeMovie(params:type) {
     
 }
