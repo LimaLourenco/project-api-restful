@@ -67,13 +67,19 @@ export async function findMovieById(req: Request, res: Response) {
 // Observação: Utilizando o conceito de Route Params - Route: é o caminho da URL (ex: /movies/:id), e o Params: são os dados dinâmicos passados na rota, indicados por :algumaCoisa.
 
 // Encontrando todos os filmes cadastrados
+// Obs: Todos os dados cadastrados no sistema para o front-end caso for consumir essa Api aqui, 
+// desta maneira resgato todos os dados sem filtro nenhum para por exemplo exibir numa home page.
 export async function getAllMovies(req: Request, res: Response) {
     try {
         const movies = await MovieModel.find();
-        return res.status(200).json(movies);
+        return res.status(200).json(movies);  // json(movies) – Envia como resposta um objeto JavaScript (ou array) no formato JSON. Neste caso, o conteúdo da variável movies será enviado para o cliente.
     } catch (error: any) {
         Logger.error(`Erro no sistema: ${error.message}`)
     }
+}
+
+export async function removeMovie(params:type) {
+    
 }
 
 // ** Observações **:
@@ -82,7 +88,7 @@ export async function getAllMovies(req: Request, res: Response) {
 
 // *** Observações Importantes ***:
 
-// * A Função do Controller: O controller atua como intermediário entre as rotas (que recebem requisições HTTP), 
+// * A Função do Controller no MVC classico: O controller atua como intermediário entre as rotas (que recebem requisições HTTP), 
 // e os models (que representam o banco de dados). E o controller processa os dados recebidos, interage com o banco de dados, e retorna uma resposta adequada.
 
 // * Todos os métodos estão protegidos por blocos try/catch para tratar erros e registrar com o logger.
