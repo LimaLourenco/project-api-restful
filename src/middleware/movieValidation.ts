@@ -27,4 +27,4 @@ export const movieCreateValidation = () => {
     ];
 }
 
-// Obs: Todos esses campos que estão sendo validados, são do Model, e que vem pela a requisição feita.
+// Obs: Todos esses campos que estão sendo validados são do Model, e que vem pela a requisição feita.

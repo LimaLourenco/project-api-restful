@@ -85,8 +85,13 @@ export async function getAllMovies(req: Request, res: Response) {
 }
 
 // Removendo registros
-export async function removeMovie(params:type) {
-    
+export async function removeMovie(req: Request, res: Response) {
+    try {
+        
+    } catch (error: any) {
+        Logger.error(`Erro no sistema: ${error.message}`);
+        return res.status(500).json({ error: "Por favor, tente mais tarde" }); // Atualmente, se ocorrer um erro, ele registra no logger e retorna uma resposta ao cliente/usuario ou seja uma mensagem.
+    }
 }
 
 // ** Observações **:
