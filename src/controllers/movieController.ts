@@ -40,6 +40,7 @@ export async function createMovie( req: Request, res: Response ) { // createMovi
         // Obs 2: Colocando o error: any, vou ter mais controle, e para vir um objeto de erro com variados tipos. 
         // Obs 3: A tipagem error: any é usada para garantir acesso à propriedade message, mesmo se o tipo do erro não for específico.
         Logger.error(`Erro no sistema: ${error.message}`); 
+        return res.status(500).json({ error: "Por favor, tente mais tarde!" });
     }
 }
 
@@ -65,10 +66,9 @@ export async function findMovieById(req: Request, res: Response) {
         return res.status(200).json(movie);
     } catch (error: any) {
         Logger.error(`Erro no sistema: ${error.message}`); // Captura qualquer erro que acontecer durante a criação do filme. E usa-se o Logger para registrar o erro no sistema.
+        return res.status(500).json({ error: "Por favor, tente mais tarde!" });
     }
 }
-
-// Observação: O id está sendo extraído dos parâmetros da rota — ou seja, da URL. Porque a rota foi definida.
 // Observação: O :id na definição da rota é um Route Param, e seu valor é passado dinamicamente na URL, por exemplo GET /movies/6639b66d0a1e7dfd2587a13c.
 // Observação: Utilizando o conceito de Route Params - Route: é o caminho da URL (ex: /movies/:id), e o Params: são os dados dinâmicos passados na rota, indicados por :algumaCoisa.
 
@@ -80,7 +80,8 @@ export async function getAllMovies(req: Request, res: Response) {
         const movies = await MovieModel.find();
         return res.status(200).json(movies);  // json(movies) – Envia como resposta um objeto JavaScript (ou array) no formato JSON. Neste caso, o conteúdo da variável movies será enviado para o cliente.
     } catch (error: any) {
-        Logger.error(`Erro no sistema: ${error.message}`)
+        Logger.error(`Erro no sistema: ${error.message}`);
+        return res.status(500).json({ error: "Por favor, tente mais tarde!" });
     }
 }
 
@@ -88,9 +89,20 @@ export async function getAllMovies(req: Request, res: Response) {
 export async function removeMovie(req: Request, res: Response) {
     try {
         
+        const id = req.params.id;
+        const movie = await MovieModel.findById(id);
+
+        if(!movie) {
+            return res.status(404).json({ error: "O filme não existe." });
+        }
+
+        await movie.deleteOne();
+
+        return res.status(200).json({ message: "Filme removido com sucesso!" });
+
     } catch (error: any) {
         Logger.error(`Erro no sistema: ${error.message}`);
-        return res.status(500).json({ error: "Por favor, tente mais tarde" }); // Atualmente, se ocorrer um erro, ele registra no logger e retorna uma resposta ao cliente/usuario ou seja uma mensagem.
+        return res.status(500).json({ error: "Por favor, tente mais tarde!" }); // Atualmente, se ocorrer um erro, ele registra no logger e retorna uma resposta,ou seja uma mensagem ao cliente/usuario.
     }
 }
 
