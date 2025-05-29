@@ -86,25 +86,49 @@ export async function getAllMovies(req: Request, res: Response) {
 }
 
 // Removendo registros
+// Uma função assíncrona que serve para remover um filme do banco de dados, com base na arquitetura API REST.
+// Recebe dois parâmetros: req (request) e res (response), que são padrão do Express.js, representando a requisição do cliente, e a resposta que o servidor enviará.
 export async function removeMovie(req: Request, res: Response) {
     try {
         
-        const id = req.params.id;
-        const movie = await MovieModel.findById(id);
+        const id = req.params.id; // Obtém o parâmetro id da URL da requisição. Esse id é usado para identificar qual filme será removido.
+        
+        // Uso o modelo MovieModel, para buscar um filme no banco de dados, pelo seu id.
+        // E com o await, indico que essa operação é assíncrona, e deve esperar o resultado antes de continuar.
+        const movie = await MovieModel.findById(id); 
 
+        // Se nenhum filme for encontrado com esse id (ou seja, movie é null ou undefined),
+        // retorna um status 404 (não encontrado), e uma mensagem de erro para o cliente.
         if(!movie) {
             return res.status(404).json({ error: "O filme não existe." });
         }
 
+        // Se o filme foi encontrado, faço a remoção do registro do banco de dados.
         await movie.deleteOne();
 
+        // Ao deletar/remover, respondo ao cliente com um status 200 (sucesso), e uma mensagem confirmando que o filme foi removido.
         return res.status(200).json({ message: "Filme removido com sucesso!" });
+
+        // Caso qualquer erro aconteça dentro do try, ele será capturado pelo catch.
+        // E o erro é registrado no sistema de logs usando Logger.error.
+        // E o cliente recebe uma resposta com status 500 (erro interno do servidor), e uma mensagem genérica para tente mais tarde.
 
     } catch (error: any) {
         Logger.error(`Erro no sistema: ${error.message}`);
         return res.status(500).json({ error: "Por favor, tente mais tarde!" }); // Atualmente, se ocorrer um erro, ele registra no logger e retorna uma resposta,ou seja uma mensagem ao cliente/usuario.
     }
 }
+
+// Atualizando dados ( Update )
+export async function updateMovie(req: Request, res: Response) {
+    try {
+        
+    } catch (error: any) {
+        Logger.error(`Erro no sistema: ${error.message}`);
+        return res.status(500).json({ error: "Por favor, tente mais tarde!" });
+    }
+}
+
 
 // ** Observações **:
 
