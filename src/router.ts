@@ -2,7 +2,7 @@
 
 // Importando funcionalidade Router do express ( Para criar as rotas ), e o Request e Response para trabalha com as funções que receberam as Requisições e as Respostas.  
 import { Router, Request, Response } from "express";
-import { createMovie, findMovieById, getAllMovies, removeMovie } from "./controllers/movieController";
+import { createMovie, findMovieById, getAllMovies, removeMovie, updateMovie } from "./controllers/movieController";
 
 // Validations
 import { validate } from "./middleware/handleValidation";
@@ -40,16 +40,23 @@ export default router.get("/test", (req: Request, res: Response) => {
         res.status(500).send("Internal Server Error"); // Se ocorrer algum erro durante a chamada, o catch captura o erro e responde com status HTTP 500 (erro interno do servidor) e com a mensagem "Internal Server Error".
     }
 })
-.delete("/movie/:id", async (req: Request, res: Response) => { // Rota com o metodo delete.
+.delete("/movie/:id", async (req: Request, res: Response) => { // Rota com o metodo http delete.
     try {
         await removeMovie(req, res);
     } catch (error) {
         res.status(500).send("Internal Server Error");
     }
-}) 
+})
+.patch("/movie/:id", async (req: Request, res: Response) => { // Rota com o metodo http patch, o petch sendo um update que trabalha com a atualização de campo-a-campo, e não com um update direto em todos os campos.
+    try {
+        await updateMovie(req, res);
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+})
 
 
-// Observação: Quando eu tenho verbos de http diferentes, eu posso usar a mesma rota. Ou seja, as rotas (ou Endpoints) são as mesmas, mas com metodos http diferentes.
+// Observação: Quando eu tenho verbos ou metodos de http diferentes, eu posso usar a mesma rota. Ou seja, as rotas (ou Endpoints) são as mesmas, mas com metodos http diferentes.
 
 // Observação: O :id na definição da rota é um Route Param, e seu valor é passado dinamicamente na URL, por exemplo GET /movies/6639b66d0a1e7dfd2587a13c.
 // Observação: Utilizando o conceito de Route Params - Route: é o caminho da URL (ex: /movies/:id), e o Params: são os dados dinâmicos passados na rota, indicados por :algumaCoisa.

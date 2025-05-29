@@ -122,7 +122,18 @@ export async function removeMovie(req: Request, res: Response) {
 // Atualizando dados ( Update )
 export async function updateMovie(req: Request, res: Response) {
     try {
+        const id = req.params.id; // Obtém o parâmetro id da URL da requisição, que vai bater na minha api, ou que vai chamar a minha api. Esse id é usado para identificar qual filme será atualizado.
+        const data = req.body;
         
+        // Uso o modelo MovieModel, para buscar um filme no banco de dados, pelo seu id.
+        // E com o await, indico que essa operação é assíncrona, e deve esperar o resultado antes de continuar.
+        const movie = await MovieModel.findById(id); 
+
+        // Se nenhum filme for encontrado com esse id (ou seja, movie é null ou undefined),
+        // retorna um status 404 (não encontrado), e uma mensagem de erro para o cliente.
+        if(!movie) {
+            return res.status(404).json({ error: "O filme não existe." });
+        }
     } catch (error: any) {
         Logger.error(`Erro no sistema: ${error.message}`);
         return res.status(500).json({ error: "Por favor, tente mais tarde!" });
