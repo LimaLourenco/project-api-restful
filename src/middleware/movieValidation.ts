@@ -1,6 +1,6 @@
 // Criando o Middleware para a validação de filmes
 
-// Importando o body que é o corpo da requisição pelo express-validator
+// Importando o body que é o corpo da requisição ( e é onde eu recebo os dados, ou seja pelo corpo da requisição mesmo ) - pelo express-validator
 import { body } from "express-validator";
 
 export const movieCreateValidation = () => {

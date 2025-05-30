@@ -12,7 +12,7 @@ import Logger from "../../config/logger";
 
 // Criando as minhas funções de criação, leitura e etc...
 // Todas funções serão assincronas, porque irei trabalhar com o Banco de dados, e também para pode espera o Banco de dados 
-// responder com os dados.
+// responder com alguma coisa, por exemplo com alguns dados especificos.
 // req representa a requisição feita, e o res representa uma resposta de retorno para a requisição.
 export async function createMovie( req: Request, res: Response ) { // createMovie - Responsável por criar um novo filme (movie) no banco de dados, a partir dos dados recebidos na requisição.
     
@@ -47,28 +47,41 @@ export async function createMovie( req: Request, res: Response ) { // createMovi
 // Encontrando/Resgatando o filme por id
 export async function findMovieById(req: Request, res: Response) {
     // Utizando o Route params - Para recebe os dados da requisição na rota.
-    // O id vou pega pela URL, e que também vai chega via req.params. 
+    // O id vou pega pela URL, que vai chega via req.params. 
     // Obs: Usando o Route Params para capturar o id pela URL, com req.params.id (ou via desestruturação como const { id } = req.params), e utilizando o valor para buscar o filme no banco.
     try { // Para trata o erro
         // const id = req.params.id;
 
+        // Recebo o id da URL.
+        // Pego o valor que veio na rota, tipo se a URL for http://localhost:3000/movies/123, então id vai ser '123'.
+        // Isso vem do route params, que fica tudo em req.params.
         const { id } = req.params;
 
-        // Para encontrar o movie
-        const movie = await MovieModel.findById(id); // Buscando um documento pelo seu _id, e passando o id que veio pela URL.
+        // Para encontrar o movie.
+        // Busco no banco de dados.
+        // Uso o método findById do Mongoose para procurar no banco de dados um documento cujo _id corresponda ao id que veio na URL.
+        // Se encontrar, ele guarda esse documento na variável movie.
+        const movie = await MovieModel.findById(id); 
 
         // Caso não encontre o movie
+        //  Se não encontrar, responde com erro 404.
+        // Se movie for null ou undefined, significa que não achou nada no banco, então responde ao cliente com status HTTP 404 (Not Found).
         if (!movie) {
             return res.status(404).json({ error: "O filme não existe"});
         }
 
-        // Se rota funcionar e encontra o movie
+        // Se encontrar, respondo com o status 200 + o filme em JSON.
+        // Ou seja, mandando de volta como resposta em JSON o objeto do filme encontrado.
         return res.status(200).json(movie);
     } catch (error: any) {
+        //  Se der algum erro inesperado (ex: problema no banco, erro no código), captura-se no catch:
         Logger.error(`Erro no sistema: ${error.message}`); // Captura qualquer erro que acontecer durante a criação do filme. E usa-se o Logger para registrar o erro no sistema.
-        return res.status(500).json({ error: "Por favor, tente mais tarde!" });
+        return res.status(500).json({ error: "Por favor, tente mais tarde!" }); // E retorno uma resposta com status 500 (Internal Server Error), e uma  mensagem amigável ao cliente/usuario.
     }
 }
+// Recebo um ID de filme pela URL (ex: /movies/1234).
+// Busco no banco de dados (MongoDB) um filme com esse _id usando o modelo MovieModel.
+// Retorna o filme encontrado no formato JSON, ou retorno erros apropriados se não encontrar, ou se algo der errado.
 // Observação: O :id na definição da rota é um Route Param, e seu valor é passado dinamicamente na URL, por exemplo GET /movies/6639b66d0a1e7dfd2587a13c.
 // Observação: Utilizando o conceito de Route Params - Route: é o caminho da URL (ex: /movies/:id), e o Params: são os dados dinâmicos passados na rota, indicados por :algumaCoisa.
 
@@ -147,7 +160,7 @@ export async function updateMovie(req: Request, res: Response) {
 
 // *** Observações Importantes ***:
 
-// * A Função do Controller no MVC classico: O controller atua como intermediário entre as rotas (que recebem requisições HTTP), 
+// * A Função do Controller no MVC classico: O controller atua como intermediário entre as rotas (que recebem as requisições HTTP baseado nos metodos HTTP), 
 // e os models (que representam o banco de dados). E o controller processa os dados recebidos, interage com o banco de dados, e retorna uma resposta adequada.
 
 // * Todos os métodos estão protegidos por blocos try/catch para tratar erros e registrar com o logger.
