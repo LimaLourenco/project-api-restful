@@ -135,8 +135,10 @@ export async function removeMovie(req: Request, res: Response) {
 // Atualizando dados ( Update )
 export async function updateMovie(req: Request, res: Response) {
     try {
-        const id = req.params.id; // Obtém o parâmetro id da URL da requisição, que vai bater na minha api, ou que vai chamar a minha api. Esse id é usado para identificar qual filme será atualizado.
-        const data = req.body;
+        const id = req.params.id; // Obtém o parâmetro id da URL, que vai bater na minha api, ou que vai chamar a minha api. Esse id é usado para identificar qual filme será atualizado.
+        
+        // Vou ter os dados que vão vir pelo req.body, ou seja pelo corpo da requisição e os dados vindo em formato json. São os dados de update que vem pela requisição.
+        const data = req.body; 
         
         // Uso o modelo MovieModel, para buscar um filme no banco de dados, pelo seu id.
         // E com o await, indico que essa operação é assíncrona, e deve esperar o resultado antes de continuar.
@@ -147,6 +149,12 @@ export async function updateMovie(req: Request, res: Response) {
         if(!movie) {
             return res.status(404).json({ error: "O filme não existe." });
         }
+
+        // Passando um filtro para dizer, o que vou atualizar do filme que tem um especifico _id: do id que recebo pelo meu req.params.id, e também recebendo os dados via o req.body.
+        await MovieModel.updateOne({_id: id}, data);
+
+        // Quando atualizar quero mandar uma mensagem de sucesso, com o filme atualizado.
+        return res.status(200).json(data);
     } catch (error: any) {
         Logger.error(`Erro no sistema: ${error.message}`);
         return res.status(500).json({ error: "Por favor, tente mais tarde!" });

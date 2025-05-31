@@ -8,7 +8,7 @@ import config from "config";
 // Logger para imprimir as mensagens como padrão estabelecido e configurado
 import Logger from "../../config/logger";
 
-// Criando a const para ler as requisições HTTP baseado no pacote winston
+// Criando a const para ler as requisições HTTP baseado no pacote morgan
 const stream: StreamOptions = {
     write: (message) => {
         Logger.http(message);
