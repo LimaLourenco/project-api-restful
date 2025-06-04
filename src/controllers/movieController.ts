@@ -183,3 +183,5 @@ export async function updateMovie(req: Request, res: Response) {
 
 // * As respostas é sempre enviadas no formato JSON.
 
+// *** Observação final - Foi concluida todas as ações do sistema no padrão API RESTful ( Para criação das APIs - Que são as funcionalidades ) utilizando o TypeScript e outros recursos, e também utilizando como arquitetura o MVC ( clássico ).
+

@@ -60,3 +60,5 @@ export default router.get("/test", (req: Request, res: Response) => {
 
 // Observação: O :id na definição da rota é um Route Param, e seu valor é passado dinamicamente na URL, por exemplo GET /movies/6639b66d0a1e7dfd2587a13c.
 // Observação: Utilizando o conceito de Route Params - Route: é o caminho da URL (ex: /movies/:id), e o Params: são os dados dinâmicos passados na rota, indicados por :algumaCoisa.
+
+// Obs: Aqui está todas as funcionalidades da minha aplicação. E todas as APIs testadas pelo Postman.
