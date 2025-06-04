@@ -47,7 +47,7 @@ export default router.get("/test", (req: Request, res: Response) => {
         res.status(500).send("Internal Server Error");
     }
 })
-.patch("/movie/:id", movieCreateValidation(), validate, async (req: Request, res: Response) => { // Rota com o metodo http patch, o petch sendo um update que trabalha com a atualização de campo-a-campo, e não com um update direto em todos os campos.
+.patch("/movie/:id", movieCreateValidation(), validate, async (req: Request, res: Response) => { // Rota com o metodo http patch, o patch sendo um update que trabalha com a atualização de campo-a-campo, e não como um update direto em todos os campos.
     try {
         await updateMovie(req, res);
     } catch (error) {

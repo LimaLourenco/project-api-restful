@@ -128,39 +128,45 @@ export async function removeMovie(req: Request, res: Response) {
 
     } catch (error: any) {
         Logger.error(`Erro no sistema: ${error.message}`);
-        return res.status(500).json({ error: "Por favor, tente mais tarde!" }); // Atualmente, se ocorrer um erro, ele registra no logger e retorna uma resposta,ou seja uma mensagem ao cliente/usuario.
+        return res.status(500).json({ error: "Por favor, tente mais tarde!" }); // Atualmente, se ocorrer um erro, ele registra no logger e retorna uma resposta,ou seja com uma mensagem ao cliente/usuario.
     }
 }
 
 // Atualizando dados ( Update )
 export async function updateMovie(req: Request, res: Response) {
     try {
+        // Vou pega o id do filme que veio pela URL, algo como por exemplo: PUT /movies/123. Esse 123 é do req.params.id.
         const id = req.params.id; // Obtém o parâmetro id da URL, que vai bater na minha api, ou que vai chamar a minha api. Esse id é usado para identificar qual filme será atualizado.
         
-        // Vou ter os dados que vão vir pelo req.body, ou seja pelo corpo da requisição e os dados vindo em formato json. São os dados de update que vem pela requisição.
+        // Vou ter os dados que vão vir pelo req.body, ou seja pelo corpo da requisição, e os dados vindo em formato json. São os dados de update que vem pela requisição.
+        // Ou seja, aqui vou pega os dados novos que vieram no corpo da requisição ( em JSON ). 
         const data = req.body; 
         
         // Uso o modelo MovieModel, para buscar um filme no banco de dados, pelo seu id.
         // E com o await, indico que essa operação é assíncrona, e deve esperar o resultado antes de continuar.
+        // Ou seja, aqui vou procura no banco de dados (MongoDB ), se existe algum filme com aquele id.
         const movie = await MovieModel.findById(id); 
 
         // Se nenhum filme for encontrado com esse id (ou seja, movie é null ou undefined),
         // retorna um status 404 (não encontrado), e uma mensagem de erro para o cliente.
+        // Ou seja, se não achar nada, ele retorna erro 404 dizendo que o filme não existe.
         if(!movie) {
             return res.status(404).json({ error: "O filme não existe." });
         }
 
         // Passando um filtro para dizer, o que vou atualizar do filme que tem um especifico _id: do id que recebo pelo meu req.params.id, e também recebendo os dados via o req.body.
+        // Ou seja, se achar, vou atualiza o filme no banco de dados usando os dados novos que vieram no corpo da requisição ( data ).
         await MovieModel.updateOne({_id: id}, data);
 
         // Quando atualizar quero mandar uma mensagem de sucesso, com o filme atualizado.
+        // Ou seja, vou responde com status 200 (OK) e manda de volta os dados atualizados.
         return res.status(200).json(data);
     } catch (error: any) {
+        // Se der qualquer erro inesperado, eu registro no logger e mando retorna uma resposta com um erro 500, e com uma mensagem ao cliente/usuario. 
         Logger.error(`Erro no sistema: ${error.message}`);
         return res.status(500).json({ error: "Por favor, tente mais tarde!" });
     }
 }
-
 
 // ** Observações **:
 
