@@ -62,3 +62,7 @@ export default router.get("/test", (req: Request, res: Response) => {
 // Observação: Utilizando o conceito de Route Params - Route: é o caminho da URL (ex: /movies/:id), e o Params: são os dados dinâmicos passados na rota, indicados por :algumaCoisa.
 
 // Obs: Aqui está todas as funcionalidades da minha aplicação. E todas as APIs testadas pelo Postman.
+
+// Obs: Quando alguém acessar uma URL com uma rota especifica, o Express vai chama aquela função especifica, que vai está recebendo:
+// O req: De requisição ( Onde estão os query params, headers, etc. ).
+// E o res: De resposta ( Usado para enviar a resposta ao cliente ).

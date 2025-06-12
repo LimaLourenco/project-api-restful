@@ -128,7 +128,7 @@ export async function removeMovie(req: Request, res: Response) {
 
     } catch (error: any) {
         Logger.error(`Erro no sistema: ${error.message}`);
-        return res.status(500).json({ error: "Por favor, tente mais tarde!" }); // Atualmente, se ocorrer um erro, ele registra no logger e retorna uma resposta,ou seja com uma mensagem ao cliente/usuario.
+        return res.status(500).json({ error: "Por favor, tente mais tarde!" }); // Atualmente, se ocorrer um erro, ele registra no logger e retorna uma resposta,com uma mensagem ao cliente/usuario.
     }
 }
 
@@ -162,7 +162,7 @@ export async function updateMovie(req: Request, res: Response) {
         // Ou seja, vou responde com status 200 (OK) e manda de volta os dados atualizados.
         return res.status(200).json(data);
     } catch (error: any) {
-        // Se der qualquer erro inesperado, eu registro no logger e mando retorna uma resposta com um erro 500, e com uma mensagem ao cliente/usuario. 
+        // Se der qualquer erro inesperado, eu registro no logger e mando retorna uma resposta com um erro de status 500, e com uma mensagem ao cliente/usuario. 
         Logger.error(`Erro no sistema: ${error.message}`);
         return res.status(500).json({ error: "Por favor, tente mais tarde!" });
     }
