@@ -11,7 +11,7 @@ import { MovieModel } from "../models/Movies";
 import Logger from "../../config/logger";
 
 // Criando as minhas funções de criação, leitura e etc...
-// Todas funções serão assincronas, porque irei trabalhar com o Banco de dados, e também para pode espera o Banco de dados 
+// * Todas funções serão assincronas, porque irei trabalhar com o Banco de dados, e também para pode espera o Banco de dados 
 // responder com alguma coisa, por exemplo com alguns dados especificos.
 // req representa a requisição feita, e o res representa uma resposta de retorno para a requisição.
 export async function createMovie( req: Request, res: Response ) { // createMovie - Responsável por criar um novo filme (movie) no banco de dados, a partir dos dados recebidos na requisição.
